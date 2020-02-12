@@ -6,7 +6,7 @@ class Lego(db.Model):
     model = db.Column(db.String(255))
     name = db.Column(db.String(255))
     price = db.Column(db.String(255))
-    description = db.Column(db.String(255))
+    description = db.Column(db.Text())
     rating = db.Column(db.String(255))
     available = db.Column(db.String(255))
 
