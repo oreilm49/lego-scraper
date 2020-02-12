@@ -4,3 +4,7 @@ __pycache__/
 *.scrapy/
 data.sqlite
 lego.json
+app/scraper/build
+app/scraper/dbs
+app/scraper/eggs
+*project.egg-info
