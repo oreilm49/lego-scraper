@@ -2,3 +2,5 @@ venv/
 .vscode/
 __pycache__/
 *.scrapy/
+data.sqlite
+lego.json
