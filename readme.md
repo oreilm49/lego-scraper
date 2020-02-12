@@ -15,3 +15,7 @@
 `$ flask db migrate`
 7. build tables from migration script
 `$ flask db upgrade`
+8. eggify scraper and deploy to scrapyd
+`$ scrapyd-deploy`
+9. schedule job
+`$ curl http://localhost:6800/schedule.json -d project=scraper -d spider=lego`
