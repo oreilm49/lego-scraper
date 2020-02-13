@@ -5,7 +5,7 @@ from sqlalchemy import create_engine, Column, String, Text, Integer, DateTime
 from sqlalchemy.sql import func
 import datetime
 
-basedir = 'C:\\Users\\marko\\OneDrive\\DOCUME~1\\09-LEG~1\\'
+basedir = os.getcwd().split('\\app')[0]
 DeclarativeBase = declarative_base()
 
 
@@ -21,7 +21,8 @@ class Lego(DeclarativeBase):
 
     def __init__(
             self, model=None, name=None, price=None,
-            description=None, rating=None, available=None
+            description=None, rating=None, available=None,
+            updated=None
         ):
         model = self.model
         name = self.name
@@ -29,6 +30,7 @@ class Lego(DeclarativeBase):
         description = self.description
         rating = self.rating
         available = self.available
+        updated = self.updated
 
 
 class LegoPipeline(object):
@@ -44,7 +46,7 @@ class LegoPipeline(object):
 
 
     def process_item(self, item, spider):
-        lego = Lego.query.filter_by(model=item['model']).first()
+        lego = session.query(Lego).filter_by(model=item['model']).first()
         if not lego:
             lego = Lego(
                 model=item['model'],
@@ -52,7 +54,8 @@ class LegoPipeline(object):
                 price=item['price'],
                 description=item['description'],
                 rating=item['rating'],
-                available=item['available']
+                available=item['available'],
+                updated=datetime.datetime.now()
             )
             self.session.add(lego)
             self.session.commit()
@@ -62,5 +65,6 @@ class LegoPipeline(object):
             lego.price = item['price']
             lego.description = item['description']
             lego.rating = item['rating']
-            lego.available = item['available']
+            lego.available = item['available'],
+            lego.updated = datetime.datetime.now()
             self.session.commit()
