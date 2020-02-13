@@ -61,11 +61,13 @@ class LegoPipeline(object):
             self.session.add(lego)
             self.session.commit()
         else:
-            lego.model = item['model']
-            lego.name = item['name']
-            lego.price = item['price']
-            lego.description = item['description']
-            lego.rating = item['rating']
-            lego.available = item['available'],
-            lego.updated = datetime.datetime.now()
+            lego.update({
+                "model":item['model'],
+                "name":item['name'],
+                "price":item['price'],
+                "description":item['description'],
+                "rating":item['rating'],
+                "available":item['available'],
+                "updated":datetime.datetime.now(),
+            })
             self.session.commit()
