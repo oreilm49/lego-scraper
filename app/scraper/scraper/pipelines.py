@@ -1,8 +1,8 @@
 import os
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine, Column, String, Text, Integer
-
+from sqlalchemy import create_engine, Column, String, Text, Integer, DateTime
+import datetime
 
 basedir = 'C:\\Users\\marko\\OneDrive\\DOCUME~1\\09-LEG~1\\'
 DeclarativeBase = declarative_base()
@@ -16,18 +16,20 @@ class Lego(DeclarativeBase):
     price = Column(String(255))
     description = Column(Text())
     rating = Column(String(255))
-    available = Column(String(255))
+    updated = Column(DateTime())
 
     def __init__(
             self, model=None, name=None, price=None,
-            description=None, rating=None, available=None
+            description=None, rating=None, available=None,
+            updated=None
         ):
-        self.model = model
-        self.name = name
-        self.price = price
-        self.description = description
-        self.rating = rating
-        self.available = available
+        model = self.model
+        name = self.name
+        price = self.price
+        description = self.description
+        rating = self.rating
+        available = self.available
+        updated = self.update
 
 
 class LegoPipeline(object):
