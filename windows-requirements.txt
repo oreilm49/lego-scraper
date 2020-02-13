@@ -30,6 +30,7 @@ pyOpenSSL==19.1.0
 python-dateutil==2.8.1
 python-editor==1.0.4
 python-scrapyd-api==2.1.2
+pywin32==227
 queuelib==1.5.0
 requests==2.22.0
 Scrapy==1.8.0
