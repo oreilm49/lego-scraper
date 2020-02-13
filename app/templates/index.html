@@ -51,8 +51,16 @@
                                         <td>{{product.name}}</td>
                                         <td>{{product.price}}</td>
                                         <td>{{product.rating}}</td>
-                                        <td><span class="chip {{product.available}}">{{product.available.split(' ')[0]}}</span></td>
-                                        <td>{% if product.updated %}{{product.updated}}{% endif %}</td>
+                                        <td>
+                                            <span class="chip {{product.available}}">
+                                            {% if product.available %}
+                                                {{product.available.split(' ')[0]}}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                            </span>
+                                        </td>
+                                        <td>{% if product.updated %}{{product.updated.strftime("%m/%d/%Y, %H:%M:%S")}}{% endif %}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
@@ -135,7 +143,7 @@
                                     <td>${data[i].rating}</td>
                                     <td>
                                         <span class="chip ${data[i].available}">
-                                            ${data[i].available ? data[i].available.split(' ')[0] : ""}
+                                            ${data[i].available ? data[i].available.split(' ')[0] : "0"}
                                         </span></td>
                                     <td>${data[i].updated}</td>
                                 </tr>`
