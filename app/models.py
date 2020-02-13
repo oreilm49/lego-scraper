@@ -17,12 +17,12 @@ class Lego(db.Model):
             self, model=None, name=None, price=None,
             description=None, rating=None, available=None
         ):
-        model = self.model
-        name = self.name
-        price = self.price
-        description = self.description
-        rating = self.rating
-        available = self.available
+        self.model = model
+        self.name = name
+        self.price = price
+        self.description = description
+        self.rating = rating
+        self.available = available
 
     def json(self):
         output = {}

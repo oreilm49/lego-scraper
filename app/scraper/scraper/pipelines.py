@@ -24,13 +24,13 @@ class Lego(DeclarativeBase):
             description=None, rating=None, available=None,
             updated=None
         ):
-        model = self.model
-        name = self.name
-        price = self.price
-        description = self.description
-        rating = self.rating
-        available = self.available
-        updated = self.updated
+        self.model = model
+        self.name = name
+        self.price = price
+        self.description = description
+        self.rating = rating
+        self.available = available
+        self.updated = updated
 
 
 class LegoPipeline(object):
