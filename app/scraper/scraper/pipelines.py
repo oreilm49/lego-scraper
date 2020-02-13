@@ -45,13 +45,25 @@ class LegoPipeline(object):
 
 
     def process_item(self, item, spider):
-        lego = Lego(
-            model=item['model'],
-            name=item['name'],
-            price=item['price'],
-            description=item['description'],
-            rating=item['rating'],
-            available=item['available']
-        )
-        self.session.add(lego)
-        self.session.commit()
+        lego = Lego.query.filter_by(model=item['model']).first()
+        if not lego:
+            lego = Lego(
+                model=item['model'],
+                name=item['name'],
+                price=item['price'],
+                description=item['description'],
+                rating=item['rating'],
+                available=item['available'],
+                updated=datetime.datetime.now()
+            )
+            self.session.add(lego)
+            self.session.commit()
+        else:
+            lego.model = item['model']
+            lego.name = item['name']
+            lego.price = item['price']
+            lego.description = item['description']
+            lego.rating = item['rating']
+            lego.available = item['available']
+            lego.updated = datetime.datetime.now()
+            self.session.commit()
