@@ -46,7 +46,7 @@ class LegoPipeline(object):
 
 
     def process_item(self, item, spider):
-        lego = session.query(Lego).filter_by(model=item['model']).first()
+        lego = self.session.query(Lego).filter_by(model=item['model']).first()
         if not lego:
             lego = Lego(
                 model=item['model'],
