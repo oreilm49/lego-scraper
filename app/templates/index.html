@@ -2,27 +2,67 @@
 
 {% block body %}
     <div class="container">
-    <table>
-            <thead>
-              <tr>
-                  <th>Model</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Rating</th>
-                  <th>Availability</th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for product in products %}
-                    <tr>
-                        <td>{{product.model}}</td>
-                        <td>{{product.name}}</td>
-                        <td>{{product.price}}</td>
-                        <td>{{product.rating}}</td>
-                        <td><span class="chip {{product.available}}">{{product.available}}</span></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Control Panel</span>
+                <div class="btn-group">
+                    <button class="btn green" id="run">Run Bot</button>
+                    <button class="btn red" id="wipe">Wipe Database</button>
+                </div>
+                <div id="loader" class="progress" style="margin: 1em 0 0 0; display: none;">
+                    <div class="indeterminate"></div>
+                </div>
+                {% if error %}
+                    <div class="card-panel red">
+                        <span class="white-text">
+                            <strong>Error:</strong>{{error}}
+                        </span>
+                    </div>
+                {% endif %}
+                {% if message %}
+                    <div class="card-panel blue">
+                        <span class="white-text">
+                            <strong>Message:</strong>{{message}}
+                        </span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Results</span>
+                <div id="results-body">
+                    {% if products %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Rating</th>
+                                    <th>Availability</th>
+                                    <th>Last Check</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                    <tr>
+                                        <td>{{product.model}}</td>
+                                        <td>{{product.name}}</td>
+                                        <td>{{product.price}}</td>
+                                        <td>{{product.rating}}</td>
+                                        <td><span class="chip {{product.available}}">{{product.available.split(' ')[0]}}</span></td>
+                                        <td>{% if product.updated %}{{product.updated}}{% endif %}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                    <span>No content, try running bot to collect some data</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
+{% endblock %}
 {% endblock %}
