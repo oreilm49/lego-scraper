@@ -66,6 +66,17 @@
     </div>
 {% endblock %}
 
+
+{% block extra_css %}
+<style>
+    span.chip.Available {
+        background-color: #8bc34a !important;
+        color: white !important;
+    }
+</style>
+{% endblock %}
+
+
 {% block extra_js %}
 <script>
     $(document).ready(function(){
