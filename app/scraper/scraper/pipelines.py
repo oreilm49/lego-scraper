@@ -2,6 +2,7 @@ import os
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, String, Text, Integer, DateTime
+from sqlalchemy.sql import func
 import datetime
 
 basedir = 'C:\\Users\\marko\\OneDrive\\DOCUME~1\\09-LEG~1\\'
@@ -16,12 +17,11 @@ class Lego(DeclarativeBase):
     price = Column(String(255))
     description = Column(Text())
     rating = Column(String(255))
-    updated = Column(DateTime())
+    updated = Column(DateTime(), onupdate=func.now())
 
     def __init__(
             self, model=None, name=None, price=None,
-            description=None, rating=None, available=None,
-            updated=None
+            description=None, rating=None, available=None
         ):
         model = self.model
         name = self.name
@@ -29,7 +29,6 @@ class Lego(DeclarativeBase):
         description = self.description
         rating = self.rating
         available = self.available
-        updated = self.update
 
 
 class LegoPipeline(object):
@@ -53,8 +52,7 @@ class LegoPipeline(object):
                 price=item['price'],
                 description=item['description'],
                 rating=item['rating'],
-                available=item['available'],
-                updated=datetime.datetime.now()
+                available=item['available']
             )
             self.session.add(lego)
             self.session.commit()
@@ -65,5 +63,4 @@ class LegoPipeline(object):
             lego.description = item['description']
             lego.rating = item['rating']
             lego.available = item['available']
-            lego.updated = datetime.datetime.now()
             self.session.commit()

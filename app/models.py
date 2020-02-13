@@ -1,4 +1,5 @@
 from app import db
+from sqlalchemy.sql import func
 import datetime
 
 class Lego(db.Model):
@@ -10,12 +11,11 @@ class Lego(db.Model):
     description = db.Column(db.Text())
     rating = db.Column(db.String(255))
     available = db.Column(db.String(255))
-    updated = db.Column(db.DateTime())
+    updated = db.Column(db.DateTime(), onupdate=func.now())
 
     def __init__(
             self, model=None, name=None, price=None,
-            description=None, rating=None, available=None,
-            updated=None
+            description=None, rating=None, available=None
         ):
         model = self.model
         name = self.name
@@ -23,7 +23,6 @@ class Lego(db.Model):
         description = self.description
         rating = self.rating
         available = self.available
-        updated = self.update
 
     def json(self):
         output = {}
@@ -34,5 +33,6 @@ class Lego(db.Model):
         output['description'] = self.description
         output['rating'] = self.rating
         output['available'] = self.available
-        output['updated'] = self.updated.strftime("%m/%d/%Y, %H:%M:%S")
+        if self.updated:
+            output['updated'] = self.updated.strftime("%m/%d/%Y, %H:%M:%S")
         return output
