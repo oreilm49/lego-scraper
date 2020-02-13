@@ -1,4 +1,6 @@
 # Lego Scraper
+## Description
+This app is comprised of a scrapy web scraper for collecting data from Lego.ie and a simple flask website to display results. Scrapyd is used to deploy and run spiders.
 
 ## Usage guide
 1. clone repo repo
