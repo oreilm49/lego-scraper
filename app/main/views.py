@@ -24,12 +24,11 @@ def bot_jobs():
    response = jsonify({'message':'error retrieving jobs'}), r.status_code
    return response
 
-@main.route('/bot/jobs/run')
+@main.route('/bot/jobs/run', methods=['POST'])
 def run_bot():
-   # base_url = os.environ.get('URL') or 'http://127.0.0.1/'
-   base_url = 'http://127.0.0.1'
-   jobs_url = base_url+':6800/schedule.json -d project=scraper -d spider=lego'
-   r = requests.get(jobs_url, verify=False)
+   base_url = os.environ.get('SCRAPYD_URL') or 'http://localhost'
+   jobs_url = base_url+':6800/schedule.json?project=scraper&spider=lego'
+   r = requests.post(jobs_url, verify=False)
    if r.status_code == 200:
       response = jsonify(r.json()), 200
       return response
