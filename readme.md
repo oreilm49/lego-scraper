@@ -17,5 +17,5 @@
 `$ flask db upgrade`
 8. eggify scraper and deploy to scrapyd
 `$ scrapyd-deploy`
-9. schedule job
+9. schedule job (if running on windows, ensure pywin is installed)
 `$ curl http://localhost:6800/schedule.json -d project=scraper -d spider=lego`
