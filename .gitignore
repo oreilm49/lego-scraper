@@ -9,3 +9,6 @@ app/scraper/dbs
 app/scraper/eggs
 app/scraper/logs
 *project.egg-info
+*.egg
+*.log
+*.db
