@@ -11,7 +11,7 @@ class Lego(db.Model):
     description = db.Column(db.Text())
     rating = db.Column(db.String(255))
     available = db.Column(db.String(255))
-    updated = db.Column(db.DateTime(), onupdate=func.now())
+    updated = db.Column(db.DateTime())
 
     def __init__(
             self, model=None, name=None, price=None,

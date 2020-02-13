@@ -18,7 +18,7 @@ class Lego(DeclarativeBase):
     description = Column(Text())
     rating = Column(String(255))
     available = Column(String(255))
-    updated = Column(DateTime(), onupdate=func.now())
+    updated = Column(DateTime())
 
     def __init__(
             self, model=None, name=None, price=None,
