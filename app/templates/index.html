@@ -65,4 +65,91 @@
         </div>
     </div>
 {% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function(){
+        $('#run').on('click', function(){
+            var posting = $.post('/bot/jobs/run')
+            var loader = document.getElementById('loader')
+            loader.style.display = 'block'
+            posting.done(function(){
+                M.toast({html: 'Bot scheduled to run'})
+            })
+            posting.fail(function(){
+                M.toast({html: 'Bot failed to run'})
+                loader.style.display = 'none'
+            })
+        })
+        $('#wipe').on('click', function(){
+            var deleting = $.ajax({url:'/lego', method:'DELETE'})
+            var loader = document.getElementById('loader')
+            deleting.done(function(){
+                window.location.reload()
+            })
+            deleting.fail(function(){
+                M.toast({html: 'Failed to wipe database'})
+            })
+        })
+        function checkRunningJob(){
+            var loader = document.getElementById('loader')
+            if (loader.style.display !== 'none'){
+                var getting = $.get('/bot/jobs')
+                getting.done(function(data){
+                    var loader = document.getElementById('loader')
+                    if(data.running.length === 0 && data.pending.length === 0){
+                        M.toast({html: 'Bot finished, updating UI'})
+                        var lego = $.get('/lego')
+                        lego.done(function(data){
+                            var rows = `
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Model</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Rating</th>
+                                        <th>Availability</th>
+                                        <th>Last Check</th>
+                                    </tr>
+                                </thead>
+                                <tbody>`;
+                            var counter = 0;
+                            for(var i=0; i<data.length; i++){
+                                rows += `
+                                <tr>
+                                    <td>${data[i].model}</td>
+                                    <td>${data[i].name}</td>
+                                    <td>${data[i].price}</td>
+                                    <td>${data[i].rating}</td>
+                                    <td>
+                                        <span class="chip ${data[i].available}">
+                                            ${data[i].available ? data[i].available.split(' ')[0] : ""}
+                                        </span></td>
+                                    <td>${data[i].updated}</td>
+                                </tr>`
+                                counter++
+                            }
+                            if (counter === data.length && data.length > 0){
+                                rows += `</tbody></table>`
+                                $('#results-body').html(rows)
+                                var loader = document.getElementById('loader')
+                                loader.style.display = 'none'
+                            }
+                        })
+                        lego.fail(function(data){
+                            M.toast({html: 'Failed to update UI'})
+                            loader.style.display = 'none'
+                        })
+                    }
+                })
+                getting.fail(function(){
+                    M.toast({html: 'Failed to retrieve data from bot'})
+                    loader.style.display = 'none'
+                })
+            }
+        }
+        setInterval(checkRunningJob, 2000);
+    })
+</script>
 {% endblock %}
