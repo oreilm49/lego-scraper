@@ -24,9 +24,11 @@
 `$ python main.py`
 Visit http://127.0.0.1:5000 in your browser to see it running.
 8. open a new console window and run scrapyd
+`$ source venv/scripts/activate`
 `$ cd lego-scraper/app/scraper`
 `$ scrapyd`
 9. open another console window, chdir into scrapy directory and deploy default scraper
+`$ source venv/scripts/activate`
 `$ cd lego-scraper/app/scraper`
 `$ scrapyd-deploy`
 10. Go to your browser and click Run bot to activate the scraper
