@@ -7,4 +7,5 @@ lego.json
 app/scraper/build
 app/scraper/dbs
 app/scraper/eggs
+app/scraper/logs
 *project.egg-info
