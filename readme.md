@@ -12,11 +12,11 @@ $ git clone https://github.com/oreilm49/lego-scraper.git
 ```sh
 $ virtualenv venv
 ```
-4. start env (windows)
+4. start env (windows using gitbash)
 ```sh
 $ source venv/scripts/activate
 ```
-4. start env (unix)
+4. start env (linux)
 ```sh
 $ source venv/bin/activate
 ```
@@ -24,7 +24,7 @@ $ source venv/bin/activate
 ```sh
 $ cd lego-scraper/
 ```
-6. install dependencies
+6. install dependencies (for linux please use `pip3`)
 ```sh
 pip install -r requirements.txt
 ```
